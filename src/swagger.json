@@ -1,0 +1,110 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "NodeJS_Solid Documentation",
+        "description": "This is an API",
+        "version": "1.0.0",
+        "contact": {
+            "email": "rogerio@tidea.com.br"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create a user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Usuario teste",
+                                    "email": "teste@teste.com.br"
+                                } 
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "User already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["GetAllUsers"],
+                "summary": "Get all users",
+                "description": "Get all users ",
+                "parameters": [{                 
+                    "name": "user_id",
+                    "in": "header",
+                    "description": "User ID",
+                    "required": true
+                }],            
+                "responses": {
+                    "201": {
+                        "description": "Users[]"
+                    },
+                    "400": {
+                        "description": "User not authorized to see all users"
+                    }                    
+                }
+            }                   
+        },
+        "/users/:user_id/admin": {
+            "patch": {
+                "tags": ["TurnUserAdmin"],
+                "summary": "Turn user as admin",
+                "description": "Turn user as admin",   
+                "parameters": [{                 
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "User ID",
+                    "required": true
+                }],                
+                "responses": {
+                    "201": {
+                        "description": "User"
+                    },
+                    "400": {
+                        "description": "User not available or not authorized"
+                    }
+                }
+            }            
+        },
+        "/users/:user_id": {
+            "get": {
+                "tags": ["GetUser"],
+                "summary": "Get user information",
+                "description": "Get user information",   
+                "parameters": [{                 
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "User ID",
+                    "required": true
+                }],                
+                "responses": {
+                    "201": {
+                        "description": "User"
+                    },
+                    "404": {
+                        "description": "User not available"
+                    }
+                }
+            }            
+        }   
+    }
+}
